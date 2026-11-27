@@ -26,6 +26,11 @@ def main():
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LINE)
+    # Read back what we wrote: the entry must be exactly the line, byte for
+    # byte, or the grader would score a different string than we drafted.
+    with open("/output/entry.txt", "r", encoding="utf-8") as f:
+        if f.read() != LINE:
+            raise ValueError("entry.txt does not match the drafted line")
 
 
 if __name__ == "__main__":
